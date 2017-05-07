@@ -25,6 +25,7 @@ public class GatewayRemote : MonoBehaviour {
     private static GatewayRemote instance;
     #endregion
 
+    #region singleton
     public static GatewayRemote GetInstance()
     {
         if (!instance)
@@ -50,6 +51,7 @@ public class GatewayRemote : MonoBehaviour {
                 Destroy(this.gameObject);
         }
     }
+    #endregion
 
     #region Connection
     public void Connect(string host, int port)
@@ -96,6 +98,22 @@ public class GatewayRemote : MonoBehaviour {
     public void ProcessEvents()
     {
         packet.ProcessEvents();
+    }
+    #endregion
+
+    #region authentication
+    public void Login(string username)
+    {
+        packet.Login(username);
+    }
+    public void OnLoginSuccess(string username)
+    {
+        Debug.Log("Login Success" + username);
+        PlayerPrefs.SetString("user", username);
+    }
+    public void OnDuplicateLogin(string username)
+    {
+        Debug.Log("Duplicate Login");
     }
     #endregion
 }

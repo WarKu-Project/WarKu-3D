@@ -33,11 +33,17 @@ public class DGTController : MonoBehaviour {
         if (gatewayRemote.IsConnected())
         {
             Debug.Log("Connection Success");
+            gatewayRemote.Login("Reii");
         }
         else
         {
             Debug.Log("Connection Fail");
         }
         yield break;
+    }
+
+    private void OnApplicationQuit()
+    {
+        gatewayRemote.Disconnect();
     }
 }
