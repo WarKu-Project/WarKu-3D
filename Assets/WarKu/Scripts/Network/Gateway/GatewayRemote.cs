@@ -106,9 +106,10 @@ public class GatewayRemote : MonoBehaviour {
     {
         packet.Login(username);
     }
-    public void OnLoginSuccess(string username)
+    public void OnLoginSuccess(string username,int worldPort,int combatPort,int positionPort,int statPort)
     {
         Debug.Log("Login Success" + username);
+        Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statPort);
         PlayerPrefs.SetString("user", username);
     }
     public void OnDuplicateLogin(string username)

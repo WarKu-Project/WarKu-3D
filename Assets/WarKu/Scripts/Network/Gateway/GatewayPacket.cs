@@ -61,7 +61,12 @@ public class GatewayPacket : PacketManager {
     public void OnLoginSuccess(int id,PacketReader pr)
     {
         string username = pr.ReadString();
-        remote.OnLoginSuccess(username);
+        int worldPort = pr.ReadUInt16();
+        int combatPort = pr.ReadUInt16();
+        int positionPort = pr.ReadUInt16();
+        int statPort = pr.ReadUInt16();
+
+        remote.OnLoginSuccess(username,worldPort,combatPort,positionPort,statPort);
     }
 
     public void OnDuplicateLogin(int id,PacketReader pr)
