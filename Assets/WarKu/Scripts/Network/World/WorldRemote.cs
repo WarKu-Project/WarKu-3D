@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GatewayRemote : MonoBehaviour {
+public class WorldRemote : MonoBehaviour {
 
     #region state
     private enum State
@@ -12,7 +12,7 @@ public class GatewayRemote : MonoBehaviour {
         CONNECTED,
         CONNECTING,
     };
-    
+
     void SetState(State state)
     {
         this.state = state;
@@ -20,17 +20,17 @@ public class GatewayRemote : MonoBehaviour {
     #endregion
 
     #region attr
-    private GatewayPacket packet;
+    private WorldPacket packet;
     private State state;
-    private static GatewayRemote instance;
+    private static WorldRemote instance;
     #endregion
 
     #region singleton
-    public static GatewayRemote GetInstance()
+    public static WorldRemote GetInstance()
     {
         if (!instance)
         {
-            instance = GameObject.FindObjectOfType<GatewayRemote>();
+            instance = GameObject.FindObjectOfType<WorldRemote>();
             DontDestroyOnLoad(instance.gameObject);
         }
         return instance;
@@ -41,7 +41,7 @@ public class GatewayRemote : MonoBehaviour {
         if (!instance)
         {
             instance = this;
-            packet = new GatewayPacket(this);
+            packet = new WorldPacket(this);
             SetState(State.DISCONNECTED);
             DontDestroyOnLoad(this);
         }
@@ -101,21 +101,4 @@ public class GatewayRemote : MonoBehaviour {
     }
     #endregion
 
-    #region authentication
-    public void Login(string username)
-    {
-        packet.Login(username);
-    }
-    public void OnLoginSuccess(string username,int worldPort,int combatPort,int positionPort,int statPort)
-    {
-        Debug.Log("Login Success" + username);
-        Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statPort);
-        PlayerPrefs.SetString("user", username);
-        StartCoroutine(GameObject.FindObjectOfType<DGTController>().ConnectToGame(worldPort));
-    }
-    public void OnDuplicateLogin(string username)
-    {
-        Debug.Log("Duplicate Login");
-    }
-    #endregion
 }

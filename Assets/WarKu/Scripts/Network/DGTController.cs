@@ -5,6 +5,7 @@ using UnityEngine;
 public class DGTController : MonoBehaviour {
 
     GatewayRemote gatewayRemote;
+    WorldRemote worldRemote;
 
     // Use this for initialization
     void Start()
@@ -16,8 +17,11 @@ public class DGTController : MonoBehaviour {
     void Update()
     {
         gatewayRemote.ProcessEvents();
+        if (worldRemote!=null)
+            worldRemote.ProcessEvents();
     }
 
+    #region Gateway
     IEnumerator ConnectToServer()
     {
         gatewayRemote = GatewayRemote.GetInstance();
@@ -41,9 +45,34 @@ public class DGTController : MonoBehaviour {
         }
         yield break;
     }
+    #endregion
+
+    public IEnumerator ConnectToGame(int worldPort)
+    {
+        worldRemote = WorldRemote.GetInstance();
+        worldRemote.Connect("localhost", worldPort);
+        worldRemote.ProcessEvents();
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < 10; i++)
+        {
+            if (worldRemote.IsConnected() || worldRemote.IsConnectionFailed()) break;
+            worldRemote.ProcessEvents();
+            yield return new WaitForSeconds(0.1f);
+        }
+        if (worldRemote.IsConnected())
+        {
+            Debug.Log("Connection Success");
+        }
+        else
+        {
+            Debug.Log("Connection Fail");
+        }
+        yield break;
+    }
 
     private void OnApplicationQuit()
     {
         gatewayRemote.Disconnect();
+        worldRemote.Disconnect();
     }
 }
