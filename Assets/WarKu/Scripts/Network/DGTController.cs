@@ -6,6 +6,7 @@ public class DGTController : MonoBehaviour {
 
     GatewayRemote gatewayRemote;
     WorldRemote worldRemote;
+    CombatRemote combatRemote;
 
     // Use this for initialization
     void Start()
@@ -16,9 +17,12 @@ public class DGTController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        gatewayRemote.ProcessEvents();
-        if (worldRemote!=null)
+        if (gatewayRemote)
+            gatewayRemote.ProcessEvents();
+        if (worldRemote)
             worldRemote.ProcessEvents();
+        if (combatRemote)
+            combatRemote.ProcessEvents();
     }
 
     #region Gateway
@@ -47,19 +51,24 @@ public class DGTController : MonoBehaviour {
     }
     #endregion
 
-    public IEnumerator ConnectToGame(int worldPort)
+    public IEnumerator ConnectToGame(int worldPort,int combatPort,int positionPort,int statisticPort)
     {
         worldRemote = WorldRemote.GetInstance();
         worldRemote.Connect("localhost", worldPort);
         worldRemote.ProcessEvents();
+        combatRemote = CombatRemote.GetInstance();
+        combatRemote.Connect("localhost", combatPort);
+        combatRemote.ProcessEvents();
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < 10; i++)
         {
             if (worldRemote.IsConnected() || worldRemote.IsConnectionFailed()) break;
+            if (combatRemote.IsConnected() || combatRemote.IsConnectionFailed()) break;
             worldRemote.ProcessEvents();
+            combatRemote.ProcessEvents();
             yield return new WaitForSeconds(0.1f);
         }
-        if (worldRemote.IsConnected())
+        if (worldRemote.IsConnected()&& combatRemote.IsConnected())
         {
             Debug.Log("Connection Success");
         }
@@ -72,7 +81,11 @@ public class DGTController : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        gatewayRemote.Disconnect();
-        worldRemote.Disconnect();
+        if (gatewayRemote)
+            gatewayRemote.Disconnect();
+        if (worldRemote)
+            worldRemote.Disconnect();
+        if (combatRemote)
+            combatRemote.Disconnect();
     }
 }
