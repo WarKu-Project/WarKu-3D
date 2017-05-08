@@ -105,4 +105,8 @@ public class WorldRemote : MonoBehaviour {
     {
         Debug.Log(second);
     }
+    public void UpdateState(string state)
+    {
+        Debug.Log(state);
+    }
 }

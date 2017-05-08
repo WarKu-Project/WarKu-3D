@@ -56,6 +56,7 @@ public class WorldPacket : PacketManager {
 
     void OnUpdateState(int id, PacketReader pr)
     {
-
+        string state = pr.ReadString();
+        remote.UpdateState(state);
     }
 }
