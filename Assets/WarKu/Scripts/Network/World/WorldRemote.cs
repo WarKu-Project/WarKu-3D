@@ -101,4 +101,12 @@ public class WorldRemote : MonoBehaviour {
     }
     #endregion
 
+    public void UpdateTime(int second)
+    {
+        Debug.Log(second);
+    }
+    public void UpdateState(string state)
+    {
+        Debug.Log(state);
+    }
 }
