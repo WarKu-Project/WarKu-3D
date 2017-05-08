@@ -7,6 +7,8 @@ public class DGTController : MonoBehaviour {
     GatewayRemote gatewayRemote;
     WorldRemote worldRemote;
     CombatRemote combatRemote;
+    PositionRemote positionRemote;
+    StatisticRemote statRemote;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,10 @@ public class DGTController : MonoBehaviour {
             worldRemote.ProcessEvents();
         if (combatRemote)
             combatRemote.ProcessEvents();
+        if (positionRemote)
+            positionRemote.ProcessEvents();
+        if (statRemote)
+            statRemote.ProcessEvents();
     }
 
     #region Gateway
@@ -59,16 +65,27 @@ public class DGTController : MonoBehaviour {
         combatRemote = CombatRemote.GetInstance();
         combatRemote.Connect("localhost", combatPort);
         combatRemote.ProcessEvents();
+        positionRemote = PositionRemote.GetInstance();
+        positionRemote.Connect("localhost", positionPort);
+        positionRemote.ProcessEvents();
+        statRemote = StatisticRemote.GetInstance();
+        statRemote.Connect("localhost", statisticPort);
+        statRemote.ProcessEvents();
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < 10; i++)
         {
             if (worldRemote.IsConnected() || worldRemote.IsConnectionFailed()) break;
             if (combatRemote.IsConnected() || combatRemote.IsConnectionFailed()) break;
+            if (positionRemote.IsConnected() || positionRemote.IsConnectionFailed()) break;
+            if (statRemote.IsConnected() || statRemote.IsConnectionFailed()) break;
+
             worldRemote.ProcessEvents();
             combatRemote.ProcessEvents();
+            positionRemote.ProcessEvents();
+            statRemote.ProcessEvents();
             yield return new WaitForSeconds(0.1f);
         }
-        if (worldRemote.IsConnected()&& combatRemote.IsConnected())
+        if (worldRemote.IsConnected()&& combatRemote.IsConnected() && positionRemote.IsConnected() && statRemote.IsConnected())
         {
             Debug.Log("Connection Success");
         }
@@ -87,5 +104,9 @@ public class DGTController : MonoBehaviour {
             worldRemote.Disconnect();
         if (combatRemote)
             combatRemote.Disconnect();
+        if (positionRemote)
+            positionRemote.Disconnect();
+        if (statRemote)
+            statRemote.Disconnect();
     }
 }
