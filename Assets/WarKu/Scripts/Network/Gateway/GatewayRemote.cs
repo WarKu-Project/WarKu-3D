@@ -99,23 +99,22 @@ public class GatewayRemote : MonoBehaviour {
     {
         packet.ProcessEvents();
     }
+
+    public void CheckConnection()
+    {
+        if (IsConnected())
+        {
+            Debug.Log("Connection Success");
+            //Login("Reii");
+        }
+        else
+        {
+            Debug.Log("Connection Fail");
+        }
+    }
     #endregion
 
     #region authentication
-    public void Login(string username)
-    {
-        packet.Login(username);
-    }
-    public void OnLoginSuccess(string username,int worldPort,int combatPort,int positionPort,int statPort)
-    {
-        Debug.Log("Login Success" + username);
-        Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statPort);
-        PlayerPrefs.SetString("user", username);
-        StartCoroutine(GameObject.FindObjectOfType<DGTController>().ConnectToGame(worldPort,combatPort,positionPort,statPort));
-    }
-    public void OnDuplicateLogin(string username)
-    {
-        Debug.Log("Duplicate Login");
-    }
+    
     #endregion
 }
