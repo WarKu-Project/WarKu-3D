@@ -105,7 +105,7 @@ public class GatewayRemote : MonoBehaviour {
         if (IsConnected())
         {
             Debug.Log("Connection Success");
-            //Login("Reii");
+            Authenticate("Reii");
         }
         else
         {
@@ -115,6 +115,26 @@ public class GatewayRemote : MonoBehaviour {
     #endregion
 
     #region authentication
-    
+    /**
+     * Authenticate 
+     **/
+    public void Authenticate(string username)
+    {
+        packet.RequestAuthentication(username);
+    }
+    /**
+     * Authentication Successful
+     **/
+    public void OnAuthenticationSuccessful()
+    {
+        Debug.Log("Wow Success");
+    }
+    /**
+     * Duplicate Authentication
+     **/
+     public void OnDuplicateAuthentication()
+    {
+        Debug.Log("Duplicate");
+    }
     #endregion
 }
