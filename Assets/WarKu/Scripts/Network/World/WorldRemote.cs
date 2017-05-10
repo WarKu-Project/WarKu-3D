@@ -99,14 +99,18 @@ public class WorldRemote : MonoBehaviour {
     {
         packet.ProcessEvents();
     }
+
+    public void CheckConnection()
+    {
+        if (IsConnected())
+        {
+            Debug.Log("Connection Success");
+        }
+        else
+        {
+            Debug.Log("Connection Fail");
+        }
+    }
     #endregion
 
-    public void UpdateTime(int second)
-    {
-        Debug.Log(second);
-    }
-    public void UpdateState(string state)
-    {
-        Debug.Log(state);
-    }
 }

@@ -105,7 +105,7 @@ public class GatewayRemote : MonoBehaviour {
         if (IsConnected())
         {
             Debug.Log("Connection Success");
-            //Login("Reii");
+            Authenticate("Reii");
         }
         else
         {
@@ -115,6 +115,29 @@ public class GatewayRemote : MonoBehaviour {
     #endregion
 
     #region authentication
-    
+    /**
+     * Authenticate 
+     **/
+    public void Authenticate(string username)
+    {
+        packet.RequestAuthentication(username);
+    }
+    /**
+     * Authentication Successful
+     **/
+    public void OnAuthenticationSuccessful(int worldPort,int combatPort,int positionPort,int statisticPort)
+    {
+        Debug.Log("Wow Success");
+        DGTController controller = GetComponent<DGTController>();
+        Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statisticPort);
+        controller.AssignPort(worldPort, combatPort, positionPort, statisticPort);
+    }
+    /**
+     * Duplicate Authentication
+     **/
+     public void OnDuplicateAuthentication()
+    {
+        Debug.Log("Duplicate");
+    }
     #endregion
 }

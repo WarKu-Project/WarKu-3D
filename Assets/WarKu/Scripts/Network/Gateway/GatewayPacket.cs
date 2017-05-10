@@ -7,7 +7,10 @@ public class GatewayPacket : PacketManager {
     #region id
     private enum PacketId
     {
+        CLIENT_REQUEST_AUTHENTICATION = 10000,
 
+        SERVER_RESPONSE_AUTHENTICATION_SUCCESSFUL = 20000,
+        SERVER_RESPONSE_DUPLICATE_AUTHENTICATION = 20001
     }
     #endregion
 
@@ -40,11 +43,40 @@ public class GatewayPacket : PacketManager {
     #endregion
 
     #region packet mapper
-    private void PacketMapper()
+    void PacketMapper()
     {
-        
+        _Mapper[(int)PacketId.SERVER_RESPONSE_AUTHENTICATION_SUCCESSFUL] = OnAuthenticationSuccessful;
+        _Mapper[(int)PacketId.SERVER_RESPONSE_DUPLICATE_AUTHENTICATION] = OnDuplicateAuthentication;
     }
     #endregion
 
-
+    #region authentication
+    /**
+     *  Authentication Request
+     **/
+     public void RequestAuthentication(string username)
+    {
+        PacketWriter pw = BeginSend((int)PacketId.CLIENT_REQUEST_AUTHENTICATION);
+        pw.WriteString(username);
+        EndSend();
+    }
+    /**
+     * Receive Authentication Successful Response from Server
+     **/
+     public void OnAuthenticationSuccessful(int id,PacketReader pr)
+    {
+        int worldPort = pr.ReadUInt16();
+        int combatPort = pr.ReadUInt16();
+        int positionport = pr.ReadUInt16();
+        int statisticPort = pr.ReadUInt16();
+        remote.OnAuthenticationSuccessful(worldPort,combatPort,positionport,statisticPort);
+    }
+    /**
+     * Receive Duplicate Authentication from server
+     **/
+    public void OnDuplicateAuthentication(int id,PacketReader pr)
+    {
+        remote.OnDuplicateAuthentication();
+    }
+    #endregion
 }
