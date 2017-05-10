@@ -65,7 +65,11 @@ public class GatewayPacket : PacketManager {
      **/
      public void OnAuthenticationSuccessful(int id,PacketReader pr)
     {
-        remote.OnAuthenticationSuccessful();
+        int worldPort = pr.ReadUInt16();
+        int combatPort = pr.ReadUInt16();
+        int positionport = pr.ReadUInt16();
+        int statisticPort = pr.ReadUInt16();
+        remote.OnAuthenticationSuccessful(worldPort,combatPort,positionport,statisticPort);
     }
     /**
      * Receive Duplicate Authentication from server

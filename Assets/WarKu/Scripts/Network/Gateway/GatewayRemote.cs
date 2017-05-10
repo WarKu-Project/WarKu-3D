@@ -125,9 +125,12 @@ public class GatewayRemote : MonoBehaviour {
     /**
      * Authentication Successful
      **/
-    public void OnAuthenticationSuccessful()
+    public void OnAuthenticationSuccessful(int worldPort,int combatPort,int positionPort,int statisticPort)
     {
         Debug.Log("Wow Success");
+        DGTController controller = GetComponent<DGTController>();
+        Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statisticPort);
+        controller.AssignPort(worldPort, combatPort, positionPort, statisticPort);
     }
     /**
      * Duplicate Authentication

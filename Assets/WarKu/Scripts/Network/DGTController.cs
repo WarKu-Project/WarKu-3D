@@ -20,6 +20,18 @@ public class DGTController : MonoBehaviour {
     GatewayRemote gatewayRemote;
     #endregion
 
+    #region attribute
+    /**
+     * PORT of Game core server
+     * Index | Server
+     * 0 | World Server
+     * 1 | Combat Server
+     * 2 | Position Server
+     * 3 | Statistic Server
+     **/
+    int[] progressPort = { 0, 0, 0, 0 };
+    #endregion
+
     #region unity method
     // Use this for initialization
     void Start()
@@ -82,4 +94,10 @@ public class DGTController : MonoBehaviour {
     }
     #endregion
 
+    #region port manager
+    public void AssignPort(int worldPort,int combatPort,int positionPort,int statisticPort)
+    {
+        progressPort = new int[] { worldPort, combatPort, positionPort, statisticPort };
+    }
+    #endregion
 }
