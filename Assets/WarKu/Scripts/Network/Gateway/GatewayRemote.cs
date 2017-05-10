@@ -131,6 +131,7 @@ public class GatewayRemote : MonoBehaviour {
         DGTController controller = GetComponent<DGTController>();
         Debug.Log(worldPort + " " + combatPort + " " + positionPort + " " + statisticPort);
         controller.AssignPort(worldPort, combatPort, positionPort, statisticPort);
+        StartCoroutine(controller.ConnectToWorld());
     }
     /**
      * Duplicate Authentication

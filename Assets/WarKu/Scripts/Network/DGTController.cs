@@ -79,7 +79,7 @@ public class DGTController : MonoBehaviour {
     /**
      * Connect to Gateway Server
      **/
-    IEnumerator ConnectToGateway()
+    public IEnumerator ConnectToGateway()
     {
         //Start Connection to Gateway server at HOST : PORT
         gatewayRemote.Connect(HOST, PORT);
@@ -99,7 +99,7 @@ public class DGTController : MonoBehaviour {
     /**
      * Connect to World Server
      **/
-    IEnumerator ConnectToWorld()
+    public IEnumerator ConnectToWorld()
     {
         //Start Connection to Wordl server at HOST : PORT
         worldRemote.Connect(HOST, progressPort[0]);
