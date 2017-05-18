@@ -65,6 +65,7 @@ public class GatewayPacket : PacketManager {
      **/
      public void OnAuthenticationSuccessful(int id,PacketReader pr)
     {
+        string username = pr.ReadString();
         int worldPort = pr.ReadUInt16();
         int combatPort = pr.ReadUInt16();
         int positionport = pr.ReadUInt16();

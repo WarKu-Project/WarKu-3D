@@ -7,10 +7,13 @@ public class PositionPacket : PacketManager {
     #region id
     private enum PacketId
     {
-        C_LOGIN = 10000,
+        CLIENT_ASSIGN_POSITION_REQUEST = 10000,
+        CLIENT_UPDATE_POSITION = 11000,
+        CLIENT_CREATE_UNIT = 12000,
 
-        S_NOTIFY_LOGIN_SUCCESS = 20000,
-        S_NOTIFY_DUPLICATE_LOGIN = 20001
+        SERVER_ASSIGN_POSITION = 20000,
+        SERVER_RESPONSE_UNITS_IN_SIGHT = 21000,
+        SERVER_RESPONSE_CREATE_UNIT_SUCCESS = 22000
     }
     #endregion
 

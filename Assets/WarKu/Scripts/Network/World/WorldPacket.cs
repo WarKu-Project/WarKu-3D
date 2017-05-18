@@ -7,7 +7,10 @@ public class WorldPacket : PacketManager {
     #region id
     private enum PacketId
     {
+        CLIENT_REQUEST_GAME_STATE = 10000,
 
+        SERVER_NOTIFY_STATE_CHANGE = 21000,
+        SERVER_UPDATE_TIME = 22000
     }
     #endregion
 
@@ -42,8 +45,35 @@ public class WorldPacket : PacketManager {
     #region packet mapper
     private void PacketMapper()
     {
-        
+        _Mapper[(int)PacketId.SERVER_NOTIFY_STATE_CHANGE] = OnUpdateState;
+        _Mapper[(int)PacketId.SERVER_UPDATE_TIME] = OnUpdateTime;
     }
     #endregion
 
+    #region world update
+    /**
+     * Request Update State
+     **/
+     public void RequestUpdateState()
+    {
+        PacketWriter pw = BeginSend((int)PacketId.CLIENT_REQUEST_GAME_STATE);
+        EndSend();
+    }
+    /**
+     * Update Game State
+     **/
+     public void OnUpdateState(int id,PacketReader pr)
+    {
+        string state = pr.ReadString();
+        Debug.Log(state);
+    }
+    /**
+     * Update Time
+     **/
+    public void OnUpdateTime(int id,PacketReader pr)
+    {
+        int time = pr.ReadUInt16();
+        Debug.Log(time);
+    }
+    #endregion
 }

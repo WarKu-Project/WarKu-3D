@@ -105,6 +105,7 @@ public class WorldRemote : MonoBehaviour {
         if (IsConnected())
         {
             Debug.Log("Connection Success");
+            packet.RequestUpdateState();
         }
         else
         {
