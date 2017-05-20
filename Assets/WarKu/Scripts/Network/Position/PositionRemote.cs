@@ -99,5 +99,16 @@ public class PositionRemote : MonoBehaviour {
     {
         packet.ProcessEvents();
     }
+    public void CheckConnection()
+    {
+        if (IsConnected())
+        {
+            Debug.Log("Connection Success");
+        }
+        else
+        {
+            Debug.Log("Connection Fail");
+        }
+    }
     #endregion
 }

@@ -106,6 +106,7 @@ public class WorldRemote : MonoBehaviour {
         {
             Debug.Log("Connection Success");
             packet.RequestUpdateState();
+            StartCoroutine(GetComponent<DGTController>().ConnectToPosition());
         }
         else
         {

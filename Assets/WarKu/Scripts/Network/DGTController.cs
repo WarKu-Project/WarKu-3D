@@ -19,6 +19,7 @@ public class DGTController : MonoBehaviour {
      **/ 
     GatewayRemote gatewayRemote;
     WorldRemote worldRemote;
+    PositionRemote positionRemote;
     #endregion
 
     #region attribute
@@ -52,6 +53,7 @@ public class DGTController : MonoBehaviour {
     {
         gatewayRemote.Disconnect();
         worldRemote.Disconnect();
+        positionRemote.Disconnect();
     }
     #endregion
 
@@ -63,6 +65,7 @@ public class DGTController : MonoBehaviour {
     {
         gatewayRemote = GatewayRemote.GetInstance();
         worldRemote = WorldRemote.GetInstance();
+        positionRemote = PositionRemote.GetInstance();
     }
 
     /**
@@ -72,6 +75,7 @@ public class DGTController : MonoBehaviour {
     {
         gatewayRemote.ProcessEvents();
         worldRemote.ProcessEvents();
+        positionRemote.ProcessEvents();
     }
     #endregion
 
@@ -114,6 +118,26 @@ public class DGTController : MonoBehaviour {
 
         // Connection Success / Not
         worldRemote.CheckConnection();
+        yield break;
+    }
+    /**
+     * Connect to Position Server
+     **/
+    public IEnumerator ConnectToPosition()
+    {
+        //Start Connection to Wordl server at HOST : PORT
+        positionRemote.Connect(HOST, progressPort[2]);
+
+        // Try to connect atmost 10 times
+        for (int i = 0; i < 10; i++)
+        {
+            if (positionRemote.IsConnected() || positionRemote.IsConnectionFailed()) break;
+            positionRemote.ProcessEvents();
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        // Connection Success / Not
+        positionRemote.CheckConnection();
         yield break;
     }
     #endregion

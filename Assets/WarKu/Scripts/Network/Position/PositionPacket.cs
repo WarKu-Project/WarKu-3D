@@ -51,4 +51,15 @@ public class PositionPacket : PacketManager {
 
     }
     #endregion
+
+    #region position
+    public void requestPosition(string username,string type)
+    {
+        PacketWriter pw = BeginSend((int)PacketId.CLIENT_ASSIGN_POSITION_REQUEST);
+        pw.WriteString(username);
+        pw.WriteString(type);
+        EndSend();
+    }
+
+    #endregion
 }
