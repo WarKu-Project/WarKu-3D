@@ -15,9 +15,7 @@ public class walking : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
-		walkSpeed = 1;
-		rotationSpeed = 5;
-		runSpeed = 2;
+
 	}
 
 	void Update () {
@@ -76,7 +74,8 @@ public class walking : MonoBehaviour {
 			if (Input.GetKey (KeyCode.LeftShift)) {
 				anim.Play ("run");
 				moveSpeed = runSpeed;
-			} else {
+			} 
+			else {
 				anim.Play ("walk");
 				moveSpeed = walkSpeed;
 			}
