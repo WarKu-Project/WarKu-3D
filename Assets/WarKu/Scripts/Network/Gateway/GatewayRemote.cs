@@ -102,14 +102,18 @@ public class GatewayRemote : MonoBehaviour {
 
     public void CheckConnection()
     {
+        NetworkUIHandler ui = GameObject.FindObjectOfType<NetworkUIHandler>();
+        ui.StopConnectionStatusUI();
         if (IsConnected())
         {
             Debug.Log("Connection Success");
-            Authenticate("Reii");
+            ui.ShowConnectionStatusUI("Gateway Connection is Successful",false);
+            //Authenticate("Reii");
         }
         else
         {
             Debug.Log("Connection Fail");
+            ui.ShowConnectionStatusUI("Gateway Connection is Failed!",true);
         }
     }
     #endregion

@@ -32,12 +32,17 @@ public class DGTController : MonoBehaviour {
      * 3 | Statistic Server
      **/
     int[] progressPort = { 0, 0, 0, 0 };
+    /**
+     * UI Handler
+     **/
+    NetworkUIHandler uiHandler;
     #endregion
 
     #region unity method
     // Use this for initialization
     void Start()
     {
+        InitializeUIHandler();
         InitializeRemotes();
         StartCoroutine(ConnectToGateway());
     }
@@ -79,6 +84,13 @@ public class DGTController : MonoBehaviour {
     }
     #endregion
 
+    #region utility
+    public void InitializeUIHandler()
+    {
+        uiHandler = GetComponentInChildren<NetworkUIHandler>();
+    }
+    #endregion
+    
     #region connection
     /**
      * Connect to Gateway Server
@@ -87,15 +99,14 @@ public class DGTController : MonoBehaviour {
     {
         //Start Connection to Gateway server at HOST : PORT
         gatewayRemote.Connect(HOST, PORT);
-        
+        uiHandler.ShowConnectionStatusUI("Connecting to Gateway Server...",false);
         // Try to connect atmost 10 times
         for (int i = 0; i < 10; i++)
         {
-            if (gatewayRemote.IsConnected() || gatewayRemote.IsConnectionFailed()) break;
+            if (gatewayRemote.IsConnected()) break;
             gatewayRemote.ProcessEvents();
             yield return new WaitForSeconds(0.5f);
         }
-
         // Connection Success / Not
         gatewayRemote.CheckConnection();
         yield break;
