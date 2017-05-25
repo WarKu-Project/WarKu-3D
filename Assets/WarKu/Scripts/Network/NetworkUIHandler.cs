@@ -22,4 +22,9 @@ public class NetworkUIHandler : MonoBehaviour {
         StatusLoader.GetComponentsInChildren<Animator>()[0].SetTrigger("Stop");
         StatusLoader.GetComponentsInChildren<Animator>()[1].SetTrigger("Hide");
     }
+
+    public void HideStatusUI()
+    {
+        StatusLoader.SetActive(false);
+    }
 }

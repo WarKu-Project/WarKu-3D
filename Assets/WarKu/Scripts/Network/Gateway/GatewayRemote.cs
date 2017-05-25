@@ -107,21 +107,27 @@ public class GatewayRemote : MonoBehaviour {
         if (IsConnected())
         {
             Debug.Log("Connection Success");
-            ui.ShowConnectionStatusUI("Gateway Connection is Successful",false);
+            ui.ShowConnectionStatusUI("Gateway Connection is Successful", false);
+            StartCoroutine(HideUI());
             //Authenticate("Reii");
         }
         else
         {
             Debug.Log("Connection Fail");
-            ui.ShowConnectionStatusUI("Gateway Connection is Failed!",true);
+            ui.ShowConnectionStatusUI("Gateway Connection is Failed!", true);
         }
+    }
+
+    IEnumerator HideUI(){
+        yield return new WaitForSeconds(5);
+        GameObject.FindObjectOfType<NetworkUIHandler>().HideStatusUI();     
     }
     #endregion
 
-    #region authentication
-    /**
-     * Authenticate 
-     **/
+        #region authentication
+        /**
+         * Authenticate 
+         **/
     public void Authenticate(string username)
     {
         packet.RequestAuthentication(username);
@@ -145,4 +151,5 @@ public class GatewayRemote : MonoBehaviour {
         Debug.Log("Duplicate");
     }
     #endregion
+
 }
