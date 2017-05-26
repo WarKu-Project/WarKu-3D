@@ -19,6 +19,13 @@ public class FacebookManager : MonoBehaviour {
         {
             FB.ActivateApp();
             fbCon.SetActive(false);
+            if (FB.IsLoggedIn)
+            {
+
+            }else
+            {
+                Login();
+            }
         }
     }
 
@@ -30,6 +37,7 @@ public class FacebookManager : MonoBehaviour {
 
             Debug.Log("Success");
             fbCon.SetActive(false);
+            Login();
         }
         else
         {
@@ -47,6 +55,26 @@ public class FacebookManager : MonoBehaviour {
         else
         {
             Time.timeScale = 1;
+        }
+    }
+    
+    void Login()
+    {
+        var perms = new List<string>() { "public_profile", "email" };
+        FB.LogInWithReadPermissions(perms, AuthCallback);
+    }
+
+    void AuthCallback(ILoginResult result)
+    {
+        if (FB.IsLoggedIn)
+        {
+
+            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+            Debug.Log(aToken.TokenString);
+        }
+        else
+        {
+            Debug.Log("User cancelled login");
         }
     }
 }
