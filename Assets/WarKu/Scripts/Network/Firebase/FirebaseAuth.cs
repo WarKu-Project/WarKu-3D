@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Firebase;
+using Firebase.Unity.Editor;
 
 public class FirebaseAuth : MonoBehaviour {
 
@@ -34,6 +36,7 @@ public class FirebaseAuth : MonoBehaviour {
             user = auth.CurrentUser;
             if (signedIn)
             {
+                FirebaseApp.DefaultInstance.SetEditorAuthUserId(Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser.UserId);
                 StartCoroutine(StartSelection());
             }
         }

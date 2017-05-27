@@ -195,19 +195,7 @@ public class walking : MonoBehaviour {
         //		transform.Translate (0, 0, walk * Time.deltaTime);
         //		transform.Rotate(0, turn*rotationSpeed,0);
         //		transform.Translate(new Vector3 (turn, 0, walk) * Time.deltaTime * 3);
-        time += Time.deltaTime;
-       // Debug.Log(time);
-        if (time > 0.1)
-        {
-            UpdatePosition();
-            time = 0;
-        }
+
     }
 
-    void UpdatePosition()
-    {
-        UnitInfo info = new UnitInfo(transform.position.x,transform.position.z,transform.rotation.y,"B",0,0,0);
-        //Debug.Log(JsonUtility.ToJson(info));
-        FirebaseDatabase.DefaultInstance.GetReference("units").Child("B").SetRawJsonValueAsync(JsonUtility.ToJson(info));
-    }
 }

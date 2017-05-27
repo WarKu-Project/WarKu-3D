@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Property : MonoBehaviour {
 
-    public GameObject select;
-
+    public GameObject select,playerUnitPrefab;
+    public Texture[] colors;
     int color;
 
 	// Use this for initialization
@@ -47,5 +47,8 @@ public class Property : MonoBehaviour {
             y = Random.Range(350, 400);
         }
         select.SetActive(false);
+        GameObject playerUnit = Instantiate(playerUnitPrefab, new Vector3(x, 0, y), Quaternion.identity);
+        playerUnit.transform.LookAt(new Vector3(250,0, 250));
+        playerUnit.GetComponent<MeshRenderer>().material.mainTexture = colors[color - 1];
     }
 }
