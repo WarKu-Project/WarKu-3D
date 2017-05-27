@@ -78,7 +78,7 @@ public class FacebookManager : MonoBehaviour {
         fbCon.GetComponent<Animator>().SetTrigger("End");
         yield return new WaitForSeconds(1);
         fbCon.SetActive(false);
-        GetComponent<FirebaseManager>().AuthWithFB(Facebook.Unity.AccessToken.CurrentAccessToken.TokenString);
+        GetComponent<FirebaseAuth>().AuthWithFB(Facebook.Unity.AccessToken.CurrentAccessToken.TokenString);
         yield break;
     }
 }
