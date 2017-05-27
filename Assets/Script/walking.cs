@@ -12,7 +12,7 @@ public class walking : MonoBehaviour {
 	private Vector3 previousLocation;
 	private Vector3 currentLocation;
 	public float walk, turn;
-
+	public bool attack, run;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
@@ -27,102 +27,136 @@ public class walking : MonoBehaviour {
 	}
 
 	void checkAction(){
-		if ((Input.GetKey ("w") && Input.GetKey ("a"))||(walk>0&&turn==-1)) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.z += moveSpeed * Time.fixedDeltaTime;
-			currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((Input.GetKey ("w") && Input.GetKey ("d"))||(walk>0&&turn==1)) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.z += moveSpeed * Time.fixedDeltaTime;
-			currentLocation.x += moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((Input.GetKey ("a") && Input.GetKey ("s"))||(walk<0&&turn==-1)) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
-			currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((Input.GetKey ("s") && Input.GetKey ("d"))||(walk<0&&turn==1)) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
-			currentLocation.x += moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((walk==1&&(turn<1&&turn>-1))||Input.GetKey ("w")) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
+		if (!anim.GetCurrentAnimatorStateInfo (0).IsName ("attack")) {
+			if ((Input.GetKey ("w") && Input.GetKey ("a"))||(walk>0&&turn==-1)) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z += moveSpeed * Time.fixedDeltaTime;
+				currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((Input.GetKey ("w") && Input.GetKey ("d"))||(walk>0&&turn==1)) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z += moveSpeed * Time.fixedDeltaTime;
+				currentLocation.x += moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((Input.GetKey ("a") && Input.GetKey ("s"))||(walk<0&&turn==-1)) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
+				currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((Input.GetKey ("s") && Input.GetKey ("d"))||(walk<0&&turn==1)) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
+				currentLocation.x += moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((walk==1&&(turn<1&&turn>-1))||Input.GetKey ("w")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z += moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((turn==-1&&(walk<1&&walk>-1))||Input.GetKey ("a")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((walk==-1&&(turn<1&&turn>-1))||Input.GetKey ("s")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((turn==1&&(walk<1&&walk>-1))||Input.GetKey ("d")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.x += moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if (Input.GetKey ("space") || attack) {
+				anim.Play ("attack");
 			} 
-			else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.z += moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((turn==-1&&(walk<1&&walk>-1))||Input.GetKey ("a")) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((walk==-1&&(turn<1&&turn>-1))||Input.GetKey ("s")) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if ((turn==1&&(walk<1&&walk>-1))||Input.GetKey ("d")) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				anim.Play ("run");
-				moveSpeed = runSpeed;
-			} else {
-				anim.Play ("walk");
-				moveSpeed = walkSpeed;
-			}
-			currentLocation.x += moveSpeed * Time.fixedDeltaTime;
-			transform.position = currentLocation;
-			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-		} else if (Input.GetKey ("space")) {
-			anim.Play ("attack");
-		} 
+		}
+
 		else {
 			if (anim.GetCurrentAnimatorStateInfo (0).IsName ("attack")) {
 				if(anim.GetCurrentAnimatorStateInfo (0).normalizedTime>=1){
@@ -142,8 +176,12 @@ public class walking : MonoBehaviour {
 		checkAction ();
 		walk = ControlFreak2.CF2Input.GetAxis ("Vertical");
 		turn = ControlFreak2.CF2Input.GetAxis ("Horizontal");
-		Debug.Log("walk: "+walk);
-		Debug.Log("turn: "+turn);
+		attack = ControlFreak2.CF2Input.GetKey ("Space");
+		run = ControlFreak2.CF2Input.GetKey ("Left Shift");
+
+//		Debug.Log("walk: "+walk);
+//		Debug.Log("turn: "+turn);
+//		Debug.Log("run: "+run);
 
 //		transform.Translate (0, 0, walk * Time.deltaTime);
 //		transform.Rotate(0, turn*rotationSpeed,0);
