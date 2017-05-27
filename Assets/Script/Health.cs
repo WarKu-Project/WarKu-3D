@@ -92,21 +92,5 @@ public class Health : MonoBehaviour {
 				} 
 			} 
 		}
-
-
-//		else if (o.tag == "Player") {
-//			var otherHealth = o.gameObject.GetComponentInParent<Health> ();
-//			if (GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("attack") && !otherHealth.getTakeDamage() && !otherHealth.getDeath()) {
-//				Debug.Log ("Get Damage Health: " + remainHealth);
-//				otherHealth.setTakeDamage (true);
-//				otherHealth.reduceHealth((gameObject.GetComponentInParent<walking> ().attackDamage));
-//				Debug.Log ("Get Damage Health: " + remainHealth);
-//				if (otherHealth.isDeath ()) {
-//					Debug.Log ("death");
-//					o.gameObject.GetComponentInParent<walking> ().deathAction ();
-//					otherHealth.setDeath (true);
-//				}
-//			} 
-//		}
 	}
 }

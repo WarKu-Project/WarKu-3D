@@ -210,8 +210,6 @@ public class walking : MonoBehaviour {
             }
 
         }
-
-        
     }
     void Update()
     {
