@@ -34,4 +34,5 @@ public class FirebaseDBManager : MonoBehaviour {
             others.Add(info.uid, other.GetComponent<OtherUnitProperty>());
         }
     }
+
 }
