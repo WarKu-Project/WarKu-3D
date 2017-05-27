@@ -15,6 +15,8 @@ public class walking : MonoBehaviour {
 	private Vector3 currentLocation;
 	public float walk, turn;
 	public bool attack, run;
+
+    float time = 0;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
@@ -173,6 +175,7 @@ public class walking : MonoBehaviour {
 
 			}
 		}
+
 	}
 
 	void Update () {
@@ -185,18 +188,26 @@ public class walking : MonoBehaviour {
 		attack = ControlFreak2.CF2Input.GetKey ("Space");
 		run = ControlFreak2.CF2Input.GetKey ("Left Shift");
 
-		Debug.Log("walk: "+walk);
-		Debug.Log("turn: "+turn);
-//		Debug.Log("run: "+run);
+		/*Debug.Log("walk: "+walk);
+		Debug.Log("turn: "+turn);*/
+        //		Debug.Log("run: "+run);
 
-//		transform.Translate (0, 0, walk * Time.deltaTime);
-//		transform.Rotate(0, turn*rotationSpeed,0);
-//		transform.Translate(new Vector3 (turn, 0, walk) * Time.deltaTime * 3);
-	}
+        //		transform.Translate (0, 0, walk * Time.deltaTime);
+        //		transform.Rotate(0, turn*rotationSpeed,0);
+        //		transform.Translate(new Vector3 (turn, 0, walk) * Time.deltaTime * 3);
+        time += Time.deltaTime;
+       // Debug.Log(time);
+        if (time > 0.1)
+        {
+            UpdatePosition();
+            time = 0;
+        }
+    }
 
     void UpdatePosition()
     {
-        UnitInfo info = new UnitInfo(transform.position.x,transform.position.z,transform.rotation.y, PlayerPrefs.GetString("name"),0,0,0);
-        FirebaseDatabase.DefaultInstance.GetReference("units").Child(PlayerPrefs.GetString("name")).SetRawJsonValueAsync(JsonUtility.ToJson(info));
+        UnitInfo info = new UnitInfo(transform.position.x,transform.position.z,transform.rotation.y,"B",0,0,0);
+        //Debug.Log(JsonUtility.ToJson(info));
+        FirebaseDatabase.DefaultInstance.GetReference("units").Child("B").SetRawJsonValueAsync(JsonUtility.ToJson(info));
     }
 }

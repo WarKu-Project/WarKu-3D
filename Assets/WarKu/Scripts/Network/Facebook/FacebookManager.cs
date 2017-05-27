@@ -18,11 +18,11 @@ public class FacebookManager : MonoBehaviour {
         else
         {
             FB.ActivateApp();
-            fbCon.SetActive(false);
             if (FB.IsLoggedIn)
             {
-
-            }else
+                StartCoroutine(ConnectToFirebase());
+            }
+            else
             {
                 Login();
             }
@@ -34,14 +34,10 @@ public class FacebookManager : MonoBehaviour {
         if (FB.IsInitialized)
         {
             FB.ActivateApp();
-
-            Debug.Log("Success");
-            fbCon.SetActive(false);
             Login();
         }
         else
         {
-            Debug.Log("Failed to Initialize the Facebook SDK");
             fbCon.GetComponentInChildren<Text>().text = "Can't Connect to Facebook";
         }
     }
@@ -68,13 +64,21 @@ public class FacebookManager : MonoBehaviour {
     {
         if (FB.IsLoggedIn)
         {
-            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-            Debug.Log(aToken.TokenString);
-            GetComponent<FirebaseManager>().AuthWithFB(aToken.TokenString);
+            StartCoroutine(ConnectToFirebase());
         }
         else
         {
-            Debug.Log("User cancelled login");
+            fbCon.GetComponentInChildren<Text>().text = "Login is cancelled";
+            Application.Quit();
         }
+    }
+
+    IEnumerator ConnectToFirebase()
+    {
+        fbCon.GetComponent<Animator>().SetTrigger("End");
+        yield return new WaitForSeconds(1);
+        fbCon.SetActive(false);
+        GetComponent<FirebaseManager>().AuthWithFB(Facebook.Unity.AccessToken.CurrentAccessToken.TokenString);
+        yield break;
     }
 }

@@ -15,7 +15,7 @@ public class FirebaseDB : MonoBehaviour {
 	void Awake () {
         onlineUnits = new Dictionary<string, GameObject>();
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://warku3d.firebaseio.com/");
-        FirebaseDatabase.DefaultInstance.GetReference("Leaders").OrderByChild("score")
+        FirebaseDatabase.DefaultInstance.GetReference("units")
             .ValueChanged += HandleValueChanged;
     }
 
@@ -26,12 +26,15 @@ public class FirebaseDB : MonoBehaviour {
             Debug.LogError(args.DatabaseError.Message);
             return;
         }
-        List<UnitInfo> units = JsonUtility.FromJson<List<UnitInfo>>(args.Snapshot.GetRawJsonValue());
-
-        foreach (UnitInfo u in units)
+        
+        foreach (DataSnapshot d in args.Snapshot.Children)
         {
+            UnitInfo u = JsonUtility.FromJson<UnitInfo>(d.GetRawJsonValue());
+
             if (onlineUnits.ContainsKey(u.name))
             {
+                Debug.Log(u.name);
+
                 onlineUnits[u.name].GetComponent<Unit>().Move(u.x, u.y, u.r);
             }else
             {

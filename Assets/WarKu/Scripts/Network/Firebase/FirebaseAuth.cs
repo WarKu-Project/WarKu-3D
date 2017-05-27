@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class FirebaseManager : MonoBehaviour {
+
+public class FirebaseAuth : MonoBehaviour {
 
     Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
 
-	// Use this for initialization
-	void Awake () {
+    GameObject con;
+
+    void Awake()
+    {
         InitializeFirebase();
-	}
+    }
 
     void InitializeFirebase()
     {
@@ -26,18 +28,20 @@ public class FirebaseManager : MonoBehaviour {
             bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
             if (!signedIn && user != null)
             {
-                Debug.Log("Signed out " + user.UserId);
+                Application.Quit();
             }
             user = auth.CurrentUser;
             if (signedIn)
             {
                 Debug.Log("Signed in " + user.UserId);
-            }   
+            }
         }
     }
 
     public void AuthWithFB(string token)
     {
+        con.SetActive(true);
+        con.GetComponent<Animator>().SetTrigger("Start");
         Firebase.Auth.Credential credential =
         Firebase.Auth.FacebookAuthProvider.GetCredential(token);
         auth.SignInWithCredentialAsync(credential).ContinueWith(task => {
@@ -51,11 +55,6 @@ public class FirebaseManager : MonoBehaviour {
                 Debug.LogError("SignInWithCredentialAsync encountered an error: " + task.Exception);
                 return;
             }
-
-            Firebase.Auth.FirebaseUser newUser = task.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})",
-                newUser.DisplayName, newUser.UserId);
         });
     }
-
 }
