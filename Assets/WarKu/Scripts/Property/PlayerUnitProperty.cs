@@ -16,13 +16,12 @@ public class PlayerUnitProperty : MonoBehaviour
     void Start()
     {
         time = 0;
-        action = "Idle";
+        action = "idle";
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate((ControlFreak2.CF2Input.GetAxis("Horizontal") * Vector3.right + ControlFreak2.CF2Input.GetAxis("Vertical") * Vector3.forward) * Time.deltaTime * 5);
         time += Time.deltaTime;
         if (time > 0.1)
         {

@@ -56,6 +56,9 @@ public class Property : MonoBehaviour {
         playerCam.transform.position = new Vector3(playerUnit.transform.position.x,2.18f,playerUnit.transform.position.z-5);
         playerCam.gameObject.SetActive(true);
         playerUnit.transform.LookAt(new Vector3(250,0, 250));
+        playerUnit.GetComponent<PlayerUnitProperty>().color = color;
+        playerUnit.GetComponent<PlayerUnitProperty>().name = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
+
         playerUnit.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = colors[color - 1];
     }
 }

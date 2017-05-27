@@ -34,18 +34,22 @@ public class walking : MonoBehaviour {
 
     void checkAction() {
         if (death) {
+            GetComponent<PlayerUnitProperty>().action = "death";
             anim.Play("death");
         } else {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attack")) {
                 if ((turn == -1 && (walk < 0.3 && walk > -0.3)) || Input.GetKey("a")) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -54,13 +58,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((walk == -1 && (turn < 1 && turn > -1)) || Input.GetKey("s")) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -69,13 +76,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((turn == 1 && (walk < 0.3 && walk > -0.3)) || Input.GetKey("d")) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -85,13 +95,16 @@ public class walking : MonoBehaviour {
                 }
                 else if ((Input.GetKey("w") && Input.GetKey("a")) || (walk > 0 && turn == -1)) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -101,13 +114,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((Input.GetKey("w") && Input.GetKey("d")) || (walk > 0 && turn == 1)) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -117,13 +133,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((Input.GetKey("a") && Input.GetKey("s")) || (walk < 0 && turn == -1)) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -133,13 +152,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((Input.GetKey("s") && Input.GetKey("d")) || (walk < 0 && turn == 1)) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -149,13 +171,16 @@ public class walking : MonoBehaviour {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if ((walk == 1 && (turn < 1 && turn > -1)) || Input.GetKey("w")) {
                     if (Input.GetKey(KeyCode.LeftShift) || run) {
+                        GetComponent<PlayerUnitProperty>().action = "run";
                         anim.Play("run");
                         moveSpeed = runSpeed;
                     }
                     else if (Input.GetKey("space") || attack) {
+                        GetComponent<PlayerUnitProperty>().action = "attack";
                         anim.Play("attack");
                     }
                     else {
+                        GetComponent<PlayerUnitProperty>().action = "walk";
                         anim.Play("walk");
                         moveSpeed = walkSpeed;
                     }
@@ -163,8 +188,10 @@ public class walking : MonoBehaviour {
                     transform.position = currentLocation;
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
                 } else if (Input.GetKey("space") || attack) {
+                    GetComponent<PlayerUnitProperty>().action = "attack";
                     anim.Play("attack");
                 } else {
+                    GetComponent<PlayerUnitProperty>().action = "idle";
                     anim.Play("idle");
 
                 }
@@ -172,9 +199,11 @@ public class walking : MonoBehaviour {
             else {
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("attack")) {
                     if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) {
+                        GetComponent<PlayerUnitProperty>().action = "idle";
                         anim.Play("idle");
                     }
                 } else {
+                    GetComponent<PlayerUnitProperty>().action = "idle";
                     anim.Play("idle");
 
                 }
