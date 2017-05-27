@@ -11,17 +11,18 @@ public class walking : MonoBehaviour {
 	public float rotationSpeed;
 	private Vector3 previousLocation;
 	private Vector3 currentLocation;
-
+	public Score score;
+	GameObject player;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
-
 	}
 
 	void Update () {
 		previousLocation = currentLocation;    
 		currentLocation = transform.position;
-
+		score.setCurrentLocation (currentLocation);
+		
 		if (Input.GetKey ("w") && Input.GetKey ("a")) {
 			if (Input.GetKey (KeyCode.LeftShift)) {
 				anim.Play ("run");
