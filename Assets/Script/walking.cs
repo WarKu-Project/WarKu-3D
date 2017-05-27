@@ -28,7 +28,53 @@ public class walking : MonoBehaviour {
 
 	void checkAction(){
 		if (!anim.GetCurrentAnimatorStateInfo (0).IsName ("attack")) {
-			if ((Input.GetKey ("w") && Input.GetKey ("a"))||(walk>0&&turn==-1)) {
+			if ((turn==-1&&(walk<0.3&&walk>-0.3))||Input.GetKey ("a")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((walk==-1&&(turn<1&&turn>-1))||Input.GetKey ("s")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} else if ((turn==1&&(walk<0.3&&walk>-0.3))||Input.GetKey ("d")) {
+				if (Input.GetKey (KeyCode.LeftShift) || run) {
+					anim.Play ("run");
+					moveSpeed = runSpeed;
+				} 
+				else if (Input.GetKey ("space") || attack) {
+					anim.Play ("attack");
+				} 
+				else {
+					anim.Play ("walk");
+					moveSpeed = walkSpeed;
+				}
+				currentLocation.x += moveSpeed * Time.fixedDeltaTime;
+				transform.position = currentLocation;
+				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+			} 
+			else if ((Input.GetKey ("w") && Input.GetKey ("a"))||(walk>0&&turn==-1)) {
 				if (Input.GetKey (KeyCode.LeftShift) || run) {
 					anim.Play ("run");
 					moveSpeed = runSpeed;
@@ -107,54 +153,12 @@ public class walking : MonoBehaviour {
 				currentLocation.z += moveSpeed * Time.fixedDeltaTime;
 				transform.position = currentLocation;
 				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-			} else if ((turn==-1&&(walk<1&&walk>-1))||Input.GetKey ("a")) {
-				if (Input.GetKey (KeyCode.LeftShift) || run) {
-					anim.Play ("run");
-					moveSpeed = runSpeed;
-				} 
-				else if (Input.GetKey ("space") || attack) {
-					anim.Play ("attack");
-				} 
-				else {
-					anim.Play ("walk");
-					moveSpeed = walkSpeed;
-				}
-				currentLocation.x -= moveSpeed * Time.fixedDeltaTime;
-				transform.position = currentLocation;
-				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-			} else if ((walk==-1&&(turn<1&&turn>-1))||Input.GetKey ("s")) {
-				if (Input.GetKey (KeyCode.LeftShift) || run) {
-					anim.Play ("run");
-					moveSpeed = runSpeed;
-				} 
-				else if (Input.GetKey ("space") || attack) {
-					anim.Play ("attack");
-				} 
-				else {
-					anim.Play ("walk");
-					moveSpeed = walkSpeed;
-				}
-				currentLocation.z -= moveSpeed * Time.fixedDeltaTime;
-				transform.position = currentLocation;
-				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-			} else if ((turn==1&&(walk<1&&walk>-1))||Input.GetKey ("d")) {
-				if (Input.GetKey (KeyCode.LeftShift) || run) {
-					anim.Play ("run");
-					moveSpeed = runSpeed;
-				} 
-				else if (Input.GetKey ("space") || attack) {
-					anim.Play ("attack");
-				} 
-				else {
-					anim.Play ("walk");
-					moveSpeed = walkSpeed;
-				}
-				currentLocation.x += moveSpeed * Time.fixedDeltaTime;
-				transform.position = currentLocation;
-				transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
 			} else if (Input.GetKey ("space") || attack) {
 				anim.Play ("attack");
-			} 
+			}  else {
+				anim.Play ("idle");
+
+			}
 		}
 
 		else {
@@ -179,8 +183,8 @@ public class walking : MonoBehaviour {
 		attack = ControlFreak2.CF2Input.GetKey ("Space");
 		run = ControlFreak2.CF2Input.GetKey ("Left Shift");
 
-//		Debug.Log("walk: "+walk);
-//		Debug.Log("turn: "+turn);
+		Debug.Log("walk: "+walk);
+		Debug.Log("turn: "+turn);
 //		Debug.Log("run: "+run);
 
 //		transform.Translate (0, 0, walk * Time.deltaTime);
