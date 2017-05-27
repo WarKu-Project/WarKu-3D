@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Database;
 
 public class walking : MonoBehaviour {
 
@@ -187,4 +189,10 @@ public class walking : MonoBehaviour {
 //		transform.Rotate(0, turn*rotationSpeed,0);
 //		transform.Translate(new Vector3 (turn, 0, walk) * Time.deltaTime * 3);
 	}
+
+    void UpdatePosition()
+    {
+        UnitInfo info = new UnitInfo(transform.position.x,transform.position.z,transform.rotation.y, PlayerPrefs.GetString("name"),0,0,0);
+        FirebaseDatabase.DefaultInstance.GetReference("units").Child(PlayerPrefs.GetString("name")).SetRawJsonValueAsync(JsonUtility.ToJson(info));
+    }
 }

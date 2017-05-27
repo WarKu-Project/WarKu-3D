@@ -68,9 +68,9 @@ public class FacebookManager : MonoBehaviour {
     {
         if (FB.IsLoggedIn)
         {
-
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
             Debug.Log(aToken.TokenString);
+            GetComponent<FirebaseManager>().AuthWithFB(aToken.TokenString);
         }
         else
         {
