@@ -14,6 +14,7 @@ public class walking : MonoBehaviour {
 	GameObject player;
 	public float walk, turn;
 	public bool attack, run;
+	public Score score;
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
@@ -178,6 +179,7 @@ public class walking : MonoBehaviour {
 
 		previousLocation = currentLocation;    
 		currentLocation = transform.position;
+		score.setCurrentLocation(currentLocation);
 		checkAction ();
 		walk = ControlFreak2.CF2Input.GetAxis ("Vertical");
 		turn = ControlFreak2.CF2Input.GetAxis ("Horizontal");
