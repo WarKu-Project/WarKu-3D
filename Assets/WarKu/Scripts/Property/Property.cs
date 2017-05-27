@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Property : MonoBehaviour {
 
-    public GameObject select,playerUnitPrefab;
+    public GameObject select,playerUnitPrefab,cf2,mainui;
     public Texture[] colors;
+    public Camera playerCam, WorldCam;
     int color;
 
 	// Use this for initialization
@@ -47,8 +48,14 @@ public class Property : MonoBehaviour {
             y = Random.Range(350, 400);
         }
         select.SetActive(false);
+        mainui.SetActive(false);
+        cf2.SetActive(true);
         GameObject playerUnit = Instantiate(playerUnitPrefab, new Vector3(x, 0, y), Quaternion.identity);
+        WorldCam.gameObject.SetActive(false);
+        playerCam.GetComponent<CameraController>().player = playerUnit;
+        playerCam.transform.position = new Vector3(playerUnit.transform.position.x,2.18f,playerUnit.transform.position.z-5);
+        playerCam.gameObject.SetActive(true);
         playerUnit.transform.LookAt(new Vector3(250,0, 250));
-        playerUnit.GetComponent<MeshRenderer>().material.mainTexture = colors[color - 1];
+        playerUnit.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = colors[color - 1];
     }
 }
