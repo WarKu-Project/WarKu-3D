@@ -216,7 +216,7 @@ public class walking : MonoBehaviour {
 
         previousLocation = currentLocation;
         currentLocation = transform.position;
-        score.setCurrentLocation(currentLocation);
+        score.setScore(currentLocation);
         checkAction();
         walk = ControlFreak2.CF2Input.GetAxis("Vertical");
         turn = ControlFreak2.CF2Input.GetAxis("Horizontal");

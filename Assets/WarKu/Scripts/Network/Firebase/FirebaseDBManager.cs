@@ -30,6 +30,8 @@ public class FirebaseDBManager : MonoBehaviour {
             GameObject other = Instantiate(otherPrefabs, new Vector3(info.x, 0, info.y), Quaternion.identity);
             other.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = GameObject.FindObjectOfType<Property>().colors[info.color - 1];
             other.GetComponent<OtherUnitProperty>().uid = info.uid;
+            other.GetComponentInChildren<TextMesh>().text = info.name;
+            other.GetComponentInChildren<LookUpToCamera>().camera = GameObject.FindObjectOfType<Property>().playerCam.transform;
             other.GetComponent<OtherUnitProperty>().name = info.name;
             others.Add(info.uid, other.GetComponent<OtherUnitProperty>());
         }
