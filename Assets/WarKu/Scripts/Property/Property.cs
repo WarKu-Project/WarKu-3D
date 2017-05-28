@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Property : MonoBehaviour {
 
-    public GameObject select,playerUnitPrefab,cf2,mainui;
+    public GameObject select,playerUnitPrefab,cf2,mainui,die;
     public Texture[] colors;
     public Camera playerCam, WorldCam;
     int color;

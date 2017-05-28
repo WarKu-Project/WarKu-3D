@@ -29,10 +29,21 @@ public class FirebaseDBManager : MonoBehaviour {
         bool isOwner = args.Snapshot.Key == Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         if (isOwner)
         {
-            GameObject.FindObjectOfType<walking>().deathAction();
-        }else
+            Debug.Log("You Die");
+            GameObject.FindObjectOfType<walking>().anim.Play("death");
+            GameObject.FindObjectOfType<walking>().enabled = false;
+            GameObject.FindObjectOfType<Property>().WorldCam.gameObject.SetActive(true);
+            GameObject.FindObjectOfType<Property>().playerCam.gameObject.SetActive(false);
+            GameObject.FindObjectOfType<Property>().cf2.SetActive(false);
+            GameObject.FindObjectOfType<Property>().mainui.SetActive(true);
+            GameObject.FindObjectOfType<Property>().die.SetActive(true);
+            GameObject.FindObjectOfType<PlayerUnitProperty>().enabled = false;
+
+        }
+        else
         {
             others[args.Snapshot.Key].GetComponent<OtherUnitProperty>().ForceDead();
+            others[args.Snapshot.Key].GetComponent<OtherUnitProperty>().enabled = false;
         }
     }
 
@@ -68,6 +79,13 @@ public class FirebaseDBManager : MonoBehaviour {
             other.GetComponent<OtherUnitProperty>().name = info.name;
             others.Add(info.uid, other.GetComponent<OtherUnitProperty>());
         }
+    }
+
+    void HandleRemove(object sender, ChildChangedEventArgs args)
+    {
+        GameObject obj = others[args.Snapshot.Key].gameObject;
+        others.Remove(args.Snapshot.Key);
+        Destroy(obj);
     }
     class UID
     {
