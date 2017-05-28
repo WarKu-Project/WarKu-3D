@@ -38,12 +38,13 @@ public class FirebaseDBManager : MonoBehaviour {
             GameObject.FindObjectOfType<Property>().mainui.SetActive(true);
             GameObject.FindObjectOfType<Property>().die.SetActive(true);
             GameObject.FindObjectOfType<PlayerUnitProperty>().enabled = false;
-
+            Destroy(GameObject.FindObjectOfType<walking>().gameObject, 2);
         }
         else
         {
             others[args.Snapshot.Key].GetComponent<OtherUnitProperty>().ForceDead();
             others[args.Snapshot.Key].GetComponent<OtherUnitProperty>().enabled = false;
+            Destroy(others[args.Snapshot.Key].gameObject, 2);
         }
     }
 

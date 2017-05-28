@@ -27,8 +27,8 @@ public class OtherUnitProperty : MonoBehaviour {
     {
         next = new Vector3(x, transform.position.y, y);
         nextRo = new Quaternion(0, r, 0,transform.rotation.w);
-        if (action == "walk") speed = 3;
-        else if (action == "run") speed = 6;
+        if (action == "walk") speed = 6;
+        else if (action == "run") speed = 8;
        /* if (!isDead)
         {*/
             GetComponent<Animator>().Play(action, 0);
