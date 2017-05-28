@@ -28,6 +28,11 @@ public class PlayerUnitProperty : MonoBehaviour
             UpdatePosition();
             time = 0;
         }
+        if (hp <= 0)
+        {
+            GetComponent<walking>().deathAction();
+        }
+
     }
 
     void UpdatePosition()

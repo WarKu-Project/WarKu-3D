@@ -57,9 +57,12 @@ public class Property : MonoBehaviour {
         playerCam.gameObject.SetActive(true);
         playerUnit.transform.LookAt(new Vector3(250,0, 250));
         playerUnit.GetComponent<PlayerUnitProperty>().color = color;
+        playerUnit.GetComponent<PlayerUnitProperty>().hp = 1;
+
         playerUnit.GetComponent<PlayerUnitProperty>().name = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
         playerUnit.GetComponentInChildren<TextMesh>().text = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
-        playerUnit.GetComponentInChildren<LookUpToCamera>().camera = playerCam.transform;
+        playerUnit.GetComponentsInChildren<LookUpToCamera>()[0].camera = playerCam.transform;
+        playerUnit.GetComponentsInChildren<LookUpToCamera>()[1].camera = playerCam.transform;
 
         playerUnit.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = colors[color - 1];
     }

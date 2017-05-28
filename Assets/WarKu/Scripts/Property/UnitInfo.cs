@@ -18,5 +18,6 @@ public class UnitInfo
         this.name = name;
         this.action = action;
         this.color = color;
+        this.hp = hp;
     }
 }

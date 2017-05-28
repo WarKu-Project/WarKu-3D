@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Database;
 
 public class Health : MonoBehaviour {
 
@@ -60,37 +62,50 @@ public class Health : MonoBehaviour {
 	}
 		
 	void OnTriggerEnter(Collider  o ){
-		
-		if (isPlayer) {
-			Debug.Log ("tag_player: "+o.gameObject.tag);
+        Debug.Log("Hit "+o.tag);
+		//if (gameObject.tag=="Player") {
+			Debug.Log ("tag_player: "+o.gameObject.tag);    
 			if (o.tag == "Enemy") {			
 				if (GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("attack") && !take_damage && !death) {
-					Debug.Log ("Take Damage Health: " + remainHealth);
+                /*Debug.Log ("Take Damage Health: " + remainHealth);
+                take_damage = true;
+                reduceHealth (o.gameObject.GetComponentInParent<walking> ().attackDamage);
+                Debug.Log ("Take Damage Health: " + remainHealth);
+                if (isDeath ()) {
+                    Debug.Log ("death");
+                    gameObject.GetComponentInParent<walking> ().deathAction ();
+                    death = true;
+                }*/
+                     Debug.Log("ID : " + o.transform.root.GetComponent<OtherUnitProperty>().uid);
+                    FirebaseDatabase.DefaultInstance.GetReference("deadlist").Child(o.transform.root.GetComponent<OtherUnitProperty>().uid).SetValueAsync(o.transform.root.GetComponent<OtherUnitProperty>().uid);
+                } 
+			} 
+	//	} /*else {
+		//	Debug.Log ("tag_enemy: "+o.gameObject.tag);*/
+		//	if (o.tag == "Player") {	
+			//	if (GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("attack") && !take_damage && !death) {
+				/*	Debug.Log ("Take Damage Health: " + remainHealth);
 					take_damage = true;
-					reduceHealth (o.gameObject.GetComponentInParent<walking> ().attackDamage);
-					Debug.Log ("Take Damage Health: " + remainHealth);
+					reduceHealth (o.gameObject.GetComponentInParent<walking> ().attackDamage);*/
+                  //  if (gameObject.tag!="Player")
+                  //      FirebaseDatabase.DefaultInstance.GetReference("units").Child(GetComponent<OtherUnitProperty>().uid).Child("hp").SetValueAsync(GetComponent<OtherUnitProperty>().hp-1);
+					/*Debug.Log ("Take Damage Health: " + remainHealth);
 					if (isDeath ()) {
 						Debug.Log ("death");
 						gameObject.GetComponentInParent<walking> ().deathAction ();
 						death = true;
-					}
-				} 
-			} 
-		} else {
-			Debug.Log ("tag_enemy: "+o.gameObject.tag);
-			if (o.tag == "Player") {	
-				if (GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).IsName ("attack") && !take_damage && !death) {
-					Debug.Log ("Take Damage Health: " + remainHealth);
-					take_damage = true;
-					reduceHealth (o.gameObject.GetComponentInParent<walking> ().attackDamage);
-					Debug.Log ("Take Damage Health: " + remainHealth);
-					if (isDeath ()) {
-						Debug.Log ("death");
-						gameObject.GetComponentInParent<walking> ().deathAction ();
-						death = true;
-					}
-				} 
-			} 
-		}
+					}*/
+				//} 
+		//	} 
+		/*}*/
 	}
+
+    class UID
+    {
+        public string uid;
+    public UID(string uid)
+    {
+        this.uid = uid;
+    }
+}
 }
