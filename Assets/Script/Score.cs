@@ -22,6 +22,7 @@ public class Score : MonoBehaviour {
 	public void setScore(Vector3 currentLocation){
 		if (chceckCurrentLocation (currentLocation)) {
 			score += 0.1;
+            Debug.Log(GameObject.FindObjectOfType<PlayerUnitProperty>().color + "");
             FirebaseDatabase.DefaultInstance
               .GetReference("score")
               .Child(GameObject.FindObjectOfType<PlayerUnitProperty>().color+"")
@@ -34,12 +35,11 @@ public class Score : MonoBehaviour {
                   {
                       DataSnapshot snapshot = task.Result;
                       string score = snapshot.Value.ToString();
-                      
+                      Debug.Log(score + " score");
                       FirebaseDatabase.DefaultInstance.GetReference("score").Child(GameObject.FindObjectOfType<PlayerUnitProperty>().color + "").SetValueAsync((int.Parse(score)+1)+"");
                   }
               });
 			aura = Instantiate (explosion, currentLocation, Quaternion.identity);
-			Debug.Log (score);
 		} else {
 			score = 0;
 		}

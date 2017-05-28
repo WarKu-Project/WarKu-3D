@@ -17,8 +17,28 @@ public class FirebaseDBManager : MonoBehaviour {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://warku3d.firebaseio.com/");
         var unitRef = FirebaseDatabase.DefaultInstance.GetReference("units");
         unitRef.ChildChanged += HandleValueChanged;
+        unitRef.ChildRemoved += HandleRemove;
         var deadRef = FirebaseDatabase.DefaultInstance.GetReference("deadlist");
         deadRef.ChildAdded += HandleDead;
+        var scoreRef = FirebaseDatabase.DefaultInstance.GetReference("score");
+        scoreRef.ValueChanged += HandleScoreChange;
+    }
+
+    void HandleScoreChange(object sender, ValueChangedEventArgs args)
+    {
+        Debug.Log("INNN");
+        int num = 0;
+        int c = 0;
+        foreach (DataSnapshot s in args.Snapshot.Children)
+        {
+            if (int.Parse((string)s.Value) > num)
+            {
+                c = int.Parse((string)s.Key);
+                num = int.Parse((string)s.Value);
+            }
+        }
+        Debug.Log("Max " +c);
+        GameObject.FindObjectOfType<CastleColor>().SetColor(c);
     }
 
     void HandleDead(object sender, ChildChangedEventArgs args) {
