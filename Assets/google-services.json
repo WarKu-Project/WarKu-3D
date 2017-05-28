@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "408049264779",
+    "firebase_url": "https://warku3d.firebaseio.com",
+    "project_id": "warku3d",
+    "storage_bucket": "warku3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408049264779:android:b7c47e718b505048",
+        "android_client_info": {
+          "package_name": "com.innoma.warku3d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408049264779-26pblrrt81mdrd104afaudtqdddhg70b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-sSfnwQCD1XqG1D8Zpxn69es-h9-0TIY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

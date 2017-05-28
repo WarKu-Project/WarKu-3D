@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Score : MonoBehaviour {
-	private double score = 0;
+	private float score = 0;
 	private Vector3 currentLocation;
 	public GameObject explosion;
 	public GameObject player;
@@ -21,9 +21,9 @@ public class Score : MonoBehaviour {
 
 	public void setScore(Vector3 currentLocation){
 		if (checkCurrentLocation (currentLocation)) {
-			score += 0.1;
+			score += 0.1f;
 			aura = Instantiate (explosion, currentLocation, Quaternion.identity);
-//			process.updateProcess (score);
+			process.updateProcess (score);
 			Debug.Log (score);
 		} else {
 			Debug.Log ("gun");
