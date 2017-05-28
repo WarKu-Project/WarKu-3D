@@ -78,7 +78,8 @@ public class Health : MonoBehaviour {
                 }*/
                      Debug.Log("ID : " + o.transform.root.GetComponent<OtherUnitProperty>().uid);
                     FirebaseDatabase.DefaultInstance.GetReference("deadlist").Child(o.transform.root.GetComponent<OtherUnitProperty>().uid).SetValueAsync(o.transform.root.GetComponent<OtherUnitProperty>().uid);
-                } 
+                
+            } 
 			} 
 	//	} /*else {
 		//	Debug.Log ("tag_enemy: "+o.gameObject.tag);*/
