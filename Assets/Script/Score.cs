@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Database;
 
 public class Score : MonoBehaviour {
 	private double score = 0;
@@ -20,6 +22,22 @@ public class Score : MonoBehaviour {
 	public void setScore(Vector3 currentLocation){
 		if (chceckCurrentLocation (currentLocation)) {
 			score += 0.1;
+            FirebaseDatabase.DefaultInstance
+              .GetReference("score")
+              .Child(GameObject.FindObjectOfType<PlayerUnitProperty>().color+"")
+              .GetValueAsync().ContinueWith(task => {
+                  if (task.IsFaulted)
+                  {
+                      // Handle the error...
+                  }
+                  else if (task.IsCompleted)
+                  {
+                      DataSnapshot snapshot = task.Result;
+                      string score = snapshot.Value.ToString();
+                      
+                      FirebaseDatabase.DefaultInstance.GetReference("score").Child(GameObject.FindObjectOfType<PlayerUnitProperty>().color + "").SetValueAsync((int.Parse(score)+1)+"");
+                  }
+              });
 			aura = Instantiate (explosion, currentLocation, Quaternion.identity);
 			Debug.Log (score);
 		} else {
