@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://warku3d.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">408049264779</string>
+  <string name="google_storage_bucket" translatable="false">warku3d.appspot.com</string>
+  <string name="project_id" translatable="false">warku3d</string>
+  <string name="google_api_key" translatable="false">AIzaSyD-sSfnwQCD1XqG1D8Zpxn69es-h9-0TIY</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD-sSfnwQCD1XqG1D8Zpxn69es-h9-0TIY</string>
+  <string name="google_app_id" translatable="false">1:408049264779:android:b7c47e718b505048</string>
+  <string name="default_web_client_id" translatable="false">408049264779-26pblrrt81mdrd104afaudtqdddhg70b.apps.googleusercontent.com</string>
+</resources>
